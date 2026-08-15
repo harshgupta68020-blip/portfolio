@@ -2,12 +2,14 @@
 
 import { useEffect, useRef } from 'react';
 import Lenis from 'lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export function useLenis() {
   const lenisRef = useRef(null);
 
   useEffect(() => {
-    // Check reduced motion preference
+    // Reduced motion guard
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
@@ -15,6 +17,8 @@ export function useLenis() {
     if (prefersReducedMotion) {
       return;
     }
+
+    gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({
       duration: 1.2,
@@ -26,15 +30,18 @@ export function useLenis() {
 
     lenisRef.current = lenis;
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    // Lenis + GSAP ScrollTrigger Synchronization Bridge
+    lenis.on('scroll', ScrollTrigger.update);
 
-    const rafId = requestAnimationFrame(raf);
+    const tickerCallback = (time) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(tickerCallback);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      gsap.ticker.remove(tickerCallback);
       lenis.destroy();
       lenisRef.current = null;
     };
@@ -42,4 +49,3 @@ export function useLenis() {
 
   return lenisRef;
 }
-
