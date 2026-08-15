@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { aboutData } from '@/data/about';
 import { aboutPanelVariants } from '@/animations/variants';
+import { ScrubbedWordReveal } from '@/components/motion/CinematicText';
 
 export default function About() {
   const [activeId, setActiveId] = useState(aboutData[0].id);
@@ -11,17 +12,21 @@ export default function About() {
   const activeCategory = aboutData.find((item) => item.id === activeId) || aboutData[0];
 
   return (
-    <section id="about" className="py-32 md:py-40 px-4 max-w-[1400px] mx-auto">
-      {/* Statement Opener */}
+    <section id="about" className="relative z-20 py-32 md:py-40 px-4 max-w-[1400px] mx-auto bg-[#09090B]">
+      {/* M2: Scroll-Scrubbed Statement Opener */}
       <div className="text-center mb-16 md:mb-24">
-        <h2 className="text-white font-semibold text-[clamp(2rem,4vw,4rem)] tracking-[-0.02em]">
-          How I think.
-        </h2>
+        <ScrubbedWordReveal
+          as="h2"
+          text="How I think."
+          start="top 85%"
+          end="center 45%"
+          className="text-white font-semibold text-[clamp(2.5rem,5vw,5rem)] tracking-[-0.02em]"
+        />
       </div>
 
       {/* Split Panel Layout */}
-      <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-start bg-[#111111]/40 border border-white/10 rounded-[24px] p-6 md:p-12 backdrop-blur-sm">
-        {/* Left Navigation Rail (30% width on desktop) */}
+      <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-start bg-[#111111]/40 border border-white/10 rounded-[24px] p-6 md:p-12 backdrop-blur-sm shadow-2xl">
+        {/* Left Navigation Rail */}
         <nav
           aria-label="Philosophy Categories"
           className="w-full md:w-1/3 flex md:flex-col gap-2 md:gap-4 overflow-x-auto pb-4 md:pb-0 scrollbar-none border-b md:border-b-0 border-white/10"
@@ -39,7 +44,6 @@ export default function About() {
                     : 'text-white/40 hover:text-white/80 hover:bg-white/[0.02]'
                 }`}
               >
-                {/* Active Indicator Bar */}
                 {isActive && (
                   <motion.span
                     layoutId="aboutActiveBar"
@@ -60,7 +64,7 @@ export default function About() {
           })}
         </nav>
 
-        {/* Right Content Panel (70% width on desktop) */}
+        {/* Right Content Panel */}
         <div
           aria-live="polite"
           className="w-full md:w-2/3 min-h-[220px] flex flex-col justify-center px-2 md:px-8"
