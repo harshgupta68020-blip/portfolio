@@ -1,0 +1,247 @@
+PORTFOLIO ARCHITECTURE — PRODUCTION v2
+======================================
+Supersedes: portfolio_architecture (2).txt
+Companion doc: PORTFOLIO DESIGN SYSTEM — PRODUCTION v2
+
+NORTH STAR
+----------
+The visitor leaves thinking:
+"This person builds. Learns quickly. Understands systems.
+Explains complexity clearly. Is worth interviewing."
+
+Design identity: "Cinematic minimalism" — Micro1-style full-screen
+scenes + atmospheric depth, combined with one deliberate interactive
+adaptation (the About split panel).
+
+Global rules
+- High signal, low noise: every sentence earns its place.
+- One accent color (#3B82F6), used ONLY for indicators/hovers/diagrams.
+- No hard scroll-snap. Lenis smooth scroll + large vertical rhythm
+  creates the "scene" pacing.
+- Architecture diagrams are ALWAYS visible (core evidence).
+  Hover only enhances (zoom + glow), never reveals.
+- prefers-reduced-motion: disable Lenis, ambient drift, staggers.
+
+TECH STACK
+----------
+Next.js 15 (App Router) · TypeScript · Tailwind CSS · Framer Motion ·
+Lenis · Shadcn/UI · Lucide Icons
+GSAP: ONLY if scroll-linked timeline growth can't be done cleanly in
+Framer Motion. Three.js: NOT used (performance budget).
+
+FOLDER STRUCTURE
+----------------
+src/
+├── app/            (layout.tsx, page.tsx, globals.css, metadata + OG)
+├── components/
+│   ├── navbar/     (floating pill, transparent → blur)
+│   ├── hero/       (headline, rotating eyebrow, CTAs, atmosphere)
+│   ├── about/      (statement intro + split panel)
+│   ├── projects/   (featured card, grid card, diagram SVGs)
+│   ├── skills/     (capability cards with hover/focus reveal)
+│   ├── timeline/   (scroll-growing journey line)
+│   ├── notes/      (statement opener + masonry grid)
+│   └── contact/
+├── hooks/          (useLenis, useReducedMotion, useActiveSection)
+├── animations/     (shared variants: fadeUp, stagger, reveal)
+├── data/           (about.ts, projects.ts, skills.ts, journey.ts,
+│                    notes.ts, links.ts)   ← ALL copy lives here
+└── lib/            (tokens, utils)
+
+==================================================
+SECTION 1 — HERO (full viewport "scene")
+==================================================
+Goal: answer "Who are you?" within 3 seconds.
+
+Background (atmosphere, CSS-only — no photos):
+- Base #09090B
+- radial-gradient(ellipse at 20% 50%, rgba(59,130,246,0.08), transparent 50%)
+- radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.04), transparent 50%)
+- Fine grain: inline SVG feTurbulence data-URI, opacity 0.03
+- Slow drift: 24s ease-in-out infinite alternate (ambient exception
+  to the 300–1200ms rule; disabled under reduced motion)
+
+Content (centered, Micro1-style):
+- Eyebrow (rotating, 100ms fade swap, caption opacity):
+  "Building intelligent systems." / "Building scalable backends." /
+  "Building AI-powered products." / "Building solutions from first principles."
+- Headline (2 lines):
+  "Building intelligent systems
+   that solve real-world problems."
+- Subheading: "Backend • AI • System Design"
+- CTAs:
+  [View Projects →]  primary white pill, arrow shifts +4px on hover
+  [Resume]          ghost pill
+- Scroll cue: thin 1px vertical line, subtle loop, bottom center
+
+Entry animation (Design System §Motion): navbar → headline →
+subheading → buttons, 100ms stagger, 0.8s, y 40→0.
+
+==================================================
+SECTION 2 — ABOUT ("How I think")
+==================================================
+Structure = Micro1 framing + your adaptation:
+  A) Full-bleed statement opener (centered, section-heading scale):
+     "How I think."
+  B) Split panel: left 30% vertical nav / right 70% content panel.
+
+Categories + copy (final):
+01 Ownership — "I prefer owning problems from design to deployment.
+   Understanding the entire system allows better decisions."
+02 Systems Thinking — "I enjoy breaking complex systems into
+   understandable components."
+03 Learning — "The fastest way to learn is to build."
+04 Discipline — "Consistency compounds."
+05 Curiosity — "I explore fields outside engineering — psychology,
+   philosophy, and decision making — because software ultimately
+   serves people."
+
+Interaction:
+- Scroll-driven highlight (useActiveSection) AND click/keyboard.
+- Nav items are <button>s; active gets aria-current, accent indicator
+  line, full opacity; inactive 40%.
+- Panel transition 500ms: old (op 1→0, y 0→-20) / new (op 0→1, y 20→0).
+- Mobile (<768px): left rail becomes horizontal chip row above panel.
+
+==================================================
+SECTION 3 — PROJECTS (most important)
+==================================================
+Layout:
+- Featured card (IntelliLight): full container width, min-height 600px.
+- Remaining cards: 2-column grid (1-col mobile), gap 32–48px.
+- "Future Exploration" placeholder card closes the section.
+
+Card structure (top → bottom):
+Project name · one-line summary · architecture diagram (SVG) ·
+technology chips · Problem · Solution · Impact · (Learnings) · CTAs
+[Source →] [Details →]
+
+Diagram spec (SVG, always visible):
+- Nodes: elevated surface #18181B, border rgba(255,255,255,0.08),
+  radius 16px; labels 100% opacity.
+- Connectors: 1px lines, animated stroke-dashoffset "flow",
+  accent @ 40–60% opacity.
+- Hover: diagram scale 1.02 + glow intensifies (300ms).
+
+Project 1 — IntelliLight (featured)
+Diagram: SUMO → Environment → RL Agent → Reward Function → Traffic Signals
+Content fields (write real, quantified values in src/data/projects.ts):
+- Problem: [1 sentence — e.g. static signal timing wastes X% of wait time]
+- Solution: [1–2 sentences — RL approach, state/action summary]
+- Reward design: [1–2 sentences — the interesting engineering decision]
+- Impact: [quantified — e.g. "-X% avg wait time vs fixed-time baseline"]
+- Learnings: [2–3 bullets]
+
+Project 2 — MCP Assistant
+Diagram: User → LLM → MCP → Tools → Response
+- Why MCP matters: [1 sentence]
+- What was built: [1–2 sentences]
+- Technical challenges: [2 bullets — tool orchestration, error handling]
+- Lessons: [1–2 bullets]
+
+Project 3 — Future Exploration
+"Currently exploring…" + one line on the direction being investigated.
+Never leave the section empty.
+
+==================================================
+SECTION 4 — SKILLS
+==================================================
+No progress bars. Four capability cards (4-col desktop, 2 tablet,
+1 mobile). Each card: category title + skill list.
+Hover / focus / tap reveals a detail layer:
+- Experience level
+- Projects used in
+- Most advanced usage
+
+Backend: Node.js, Express, PostgreSQL, REST APIs, Authentication
+  reveal examples: caching, database indexing, rate limiting
+AI & ML: Python, Reinforcement Learning, LLMs, MCP, Prompt Engineering
+Problem Solving: Data Structures, Algorithms, Codeforces, Competitive Programming
+Tools: Git, Docker, Linux, AWS (if applicable)
+
+==================================================
+SECTION 5 — ENGINEERING JOURNEY
+==================================================
+Vertical timeline, 2px line, grows with scroll (scaleY on scroll
+progress). Nodes scale 0.8→1 + accent glow when passed.
+2023 Started DSA
+2024 Built Full-Stack Applications
+2025 Explored AI Systems
+2026 Developed RL Traffic Optimization
+Each node: year (100%), title (80%), one-line detail (60%).
+
+==================================================
+SECTION 6 — NOTES / PHILOSOPHY
+==================================================
+A) Full-bleed statement opener (one line, large, centered):
+   "Complexity grows naturally. Simplicity requires effort."
+B) Masonry grid (3-col desktop / 2 tablet / 1 mobile), varied heights
+   200–350px, typography-first cards (quote at card-title scale,
+   no icons, no chrome). Hover: rotation ±1deg + lift -8px.
+Cards:
+- "Good systems fail gracefully."
+- "Engineering is the management of tradeoffs."
+- "The best engineers optimize for understanding before implementation."
+- "Intelligence is often the ability to simplify complexity."
+
+==================================================
+SECTION 7 — CONTACT
+==================================================
+Headline: "Let's build something meaningful."
+Links (pill buttons / underlined links): GitHub · LinkedIn · Email · Resume
+Nothing else. Minimalism is the point.
+
+==================================================
+NAVBAR
+==================================================
+Floating pill, width 90% (max 1400px), fixed top.
+Initial: transparent. After 24px scroll: backdrop-blur 12px +
+rgba(17,17,17,0.55) + border rgba(255,255,255,0.06).
+Left: name/logo. Center: About Projects Skills Journey Notes.
+Right: [Resume] small pill.
+(No left-sidebar nav — see Decisions Log.)
+
+==================================================
+PRODUCTION REQUIREMENTS
+==================================================
+Performance
+- Lighthouse 95+ on 4G/mid-tier CPU.
+- No photos/videos/Three.js/large GIFs. Atmosphere = CSS gradients +
+  SVG grain. Diagrams = SVG. Font = Geist via next/font (swap).
+- All content data-driven from src/data (copy edits ≠ code edits).
+
+Accessibility
+- focus-visible rings on all interactive elements.
+- About nav = buttons + aria-current; panel content in live region.
+- Body text never below 80% opacity; captions 40% only for ≤14px labels.
+- Full prefers-reduced-motion fallback (static, no Lenis).
+
+SEO / Meta
+- title: "[Name] — Backend & AI Engineer"
+- OG image 1200×630: #09090B bg, hero headline in Geist 600, white.
+- Semantic h1→h3 order; one h1 (hero).
+
+CONTENT RULES
+- Quantify impact everywhere (%, latency, throughput, score).
+- One idea per sentence. No adjectives doing a metric's job.
+
+BUILD ORDER (implementation checklist)
+1. Tokens, globals, layout shell, Lenis, reduced-motion guard
+2. Navbar + Hero (atmosphere, stagger, CTAs)
+3. About (statement + split panel)
+4. Projects (featured card + SVG diagrams)
+5. Skills · 6. Journey · 7. Notes · 8. Contact
+9. Motion pass (easing/timing audit vs Design System)
+10. A11y pass · 11. Meta/OG · 12. Lighthouse pass + deploy
+
+==================================================
+DECISIONS LOG (review reconciliation)
+==================================================
+Adopted: gradient atmosphere; hero clamp(4.5rem,9vw,9.5rem) @ -0.03em;
+white pill CTA + arrow; section radial overlays; accent restraint.
+Adapted: About = statement intro + split panel; Notes = statement
+opener + masonry grid; accent kept but restricted.
+Rejected: left-sidebar hero nav (Micro1 has a top bar; About already
+owns the left rail); GSAP snap (fights Lenis, a11y risk); hover-only
+diagrams (hides strongest evidence); photo backgrounds (performance).
+==================================================

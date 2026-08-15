@@ -1,0 +1,130 @@
+PORTFOLIO DESIGN SYSTEM — PRODUCTION v2
+=======================================
+Supersedes: portfolio_design_system_v1 (2).txt
+Companion doc: PORTFOLIO ARCHITECTURE — PRODUCTION v2
+
+PHILOSOPHY
+----------
+Precision · Depth · Intelligence · Calm Confidence.
+Cinematic minimalism: full-screen scenes, atmospheric depth via CSS
+gradients, monochrome type, one restrained accent.
+Avoid: flashiness, generic student-portfolio aesthetics, overcrowded
+UI, excessive animation, photos/heavy media.
+
+==================================================
+1. TYPOGRAPHY
+==================================================
+Primary: Geist. Fallbacks: Inter, SF Pro, sans-serif.
+
+Hero heading:   clamp(4.5rem, 9vw, 9.5rem) · 600 · lh 0.95 · ls -0.03em
+Section heading:clamp(2rem, 4vw, 4rem)     · 600 · ls -0.02em
+Statement line: same as section heading (used for About/Notes openers)
+Card title:     1.5rem · 600
+Body:           1rem · lh 1.8
+Eyebrow/caption:0.875rem · 40–60%
+
+Opacity hierarchy: primary 100 · secondary 80 · muted 60 · caption 40.
+Body copy never below 80%.
+
+==================================================
+2. COLOR
+==================================================
+Background:        #09090B
+Secondary surface: #111111
+Elevated surface:  #18181B
+Cards:             rgba(255,255,255,0.03)
+Borders:           rgba(255,255,255,0.08)
+Accent (ONLY):     #3B82F6
+
+Accent usage whitelist (nothing else):
+- Active nav indicator line (About, navbar hover underline)
+- Timeline node glow
+- Diagram connectors/nodes (40–60% opacity)
+- Eyebrow dot / small markers
+- focus-visible rings
+Never: primary text, backgrounds, buttons, borders at rest.
+
+Atmosphere recipe (hero + section tops):
+radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,255,255,0.02), transparent 50%)
++ hero-only blue tint rgba(59,130,246,0.08) @ 20% 50%
++ SVG grain overlay, opacity 0.03.
+
+==================================================
+3. SPACING
+==================================================
+Section padding: 160px top/bottom desktop · 96px mobile.
+Vertical rhythm: Hero→About 220px · all others 180px.
+Card gap: 32–48px. Card internal padding: 32–48px.
+Container: max-width 1400px. Readable text: max-width 700px.
+
+==================================================
+4. SHAPE
+==================================================
+Buttons/chips/navbar: 999px (pill)
+Cards: 24px (deliberately restrained; v1 said 32 — 24 reads more
+premium against 999px pills; do not mix other radii)
+Small elements / diagram nodes: 16px
+
+==================================================
+5. GRID
+==================================================
+Projects: featured = full container; rest 2-col (1 mobile)
+Skills: 4-col desktop · 2 tablet · 1 mobile
+Notes: masonry 3-col · 2 tablet · 1 mobile; heights 200/250/300/350px
+About: 30% rail / 70% panel (mobile: chips + stacked panel)
+
+==================================================
+6. MOTION
+==================================================
+Global easing: [0.22, 1, 0.36, 1]. Feedback window: 300–1200ms.
+(Ambient background drift 24s is the single exception.)
+
+Hero entry: navbar → headline → sub → buttons · 100ms stagger ·
+0.8s · opacity 0→1 · y 40→0.
+Scroll reveal: opacity 0→1 · y 60→0 · 0.8s · trigger 20% visible.
+Card hover: y 0→-8 · scale 1→1.02 · 300ms · border glow up subtly.
+About panel: 500ms · old (1→0, y 0→-20) · new (0→1, y 20→0).
+Timeline: line scaleY with scroll progress; nodes 0.8→1 + glow.
+Diagram hover: scale 1→1.02 + glow · 300ms; connectors always
+slow-flowing (dashoffset), paused under reduced motion.
+Notes hover: rotate ±1deg + lift · 300ms.
+Navbar: transparent → blur 12px + rgba(17,17,17,0.55) after 24px.
+Scrolling: Lenis smooth. NO snap.
+
+prefers-reduced-motion: kill Lenis, drift, staggers, flows;
+all content visible; hovers reduce to color/border changes.
+
+==================================================
+7. COMPONENTS
+==================================================
+Button / primary: bg #FFFFFF · text #09090B · pill · 14px 28px ·
+weight 500 · inline-flex gap 8px · "→" icon translates +4px on hover ·
+hover bg rgba(255,255,255,0.9).
+Button / ghost: transparent · border rgba(255,255,255,0.15) · text
+100% · hover border 0.3 + bg rgba(255,255,255,0.05).
+Card: bg rgba(255,255,255,0.03) · border rgba(255,255,255,0.08) ·
+24px · hover per Motion §6.
+Chip (tech tags): pill · border rgba(255,255,255,0.08) · 60% text.
+Diagram node: #18181B · border 0.08 · 16px · label 100%.
+Nav item (About rail): 40% idle · 100% active + 2px accent line left.
+
+==================================================
+8. NAVBAR
+==================================================
+Floating pill · 90% width · fixed · transparent → blurred on scroll
+(spec §6). Single navigation system site-wide (no hero sidebar).
+
+==================================================
+9. PERFORMANCE & A11Y TARGETS
+==================================================
+Lighthouse 95+. SVG/CSS-only visuals. Geist via next/font.
+Contrast: body ≥80% on #09090B. Keyboard-operable About rail and
+cards. aria-current on active rail item. One h1. OG 1200×630 dark card.
+
+==================================================
+10. RECRUITER FLOW (unchanged — validated)
+==================================================
+Hero (Who is this?) → About (How does he think?) → Projects (Can he
+build?) → Skills (What does he know?) → Journey (How has he grown?) →
+Notes (What makes him different?) → Contact (Let's talk.)
+==================================================
