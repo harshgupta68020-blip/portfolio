@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { journeyData } from '@/data/journey';
+import { LineMaskHeading } from '@/components/motion/CinematicText';
 
 export default function Timeline() {
   const containerRef = useRef(null);
@@ -20,11 +21,14 @@ export default function Timeline() {
 
   return (
     <section id="journey" className="py-32 md:py-40 px-4 max-w-[1000px] mx-auto">
-      {/* Section Header */}
+      {/* Section Header with M1 Line-Mask Reveal */}
       <div className="text-center mb-16 md:mb-24">
-        <h2 className="text-white font-semibold text-[clamp(2rem,4vw,4rem)] tracking-[-0.02em]">
-          Engineering Journey
-        </h2>
+        <LineMaskHeading
+          as="h2"
+          lines={['Engineering Journey']}
+          scrollTrigger={true}
+          className="text-white font-semibold text-[clamp(2rem,4vw,4rem)] tracking-[-0.02em]"
+        />
         <p className="text-white/60 text-base md:text-lg mt-4 max-w-[600px] mx-auto">
           Progression from algorithmic fundamentals to autonomous AI systems engineering.
         </p>
