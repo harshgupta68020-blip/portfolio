@@ -1,0 +1,52 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#09090B"/>
+  
+  <!-- Atmosphere Gradients -->
+  <circle cx="300" cy="300" r="350" fill="#3B82F6" fill-opacity="0.08" filter="blur(80px)"/>
+  <circle cx="950" cy="200" r="300" fill="#FFFFFF" fill-opacity="0.03" filter="blur(70px)"/>
+  
+  <!-- Floating Pill Navbar -->
+  <rect x="150" y="32" width="900" height="56" rx="28" fill="#111111" fill-opacity="0.75" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="1"/>
+  <text x="190" y="66" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" letter-spacing="-0.02em">Harsh<tspan fill="#3B82F6">.</tspan></text>
+  
+  <!-- Nav links -->
+  <text x="460" y="66" fill="#FFFFFF" fill-opacity="0.6" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500">About</text>
+  <text x="540" y="66" fill="#FFFFFF" fill-opacity="0.6" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500">Projects</text>
+  <text x="630" y="66" fill="#FFFFFF" fill-opacity="0.6" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500">Skills</text>
+  <text x="700" y="66" fill="#FFFFFF" fill-opacity="0.6" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500">Journey</text>
+  <text x="785" y="66" fill="#FFFFFF" fill-opacity="0.6" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500">Notes</text>
+  
+  <!-- Resume Pill -->
+  <rect x="940" y="44" width="85" height="32" rx="16" fill="transparent" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="1"/>
+  <text x="962" y="65" fill="#FFFFFF" fill-opacity="0.9" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="500">Resume</text>
+  
+  <!-- Eyebrow Pill -->
+  <rect x="470" y="160" width="260" height="34" rx="17" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="1"/>
+  <circle cx="492" cy="177" r="3.5" fill="#3B82F6"/>
+  <text x="506" y="182" fill="#FFFFFF" fill-opacity="0.75" font-family="system-ui, -apple-system, monospace" font-size="12" font-weight="500">Building intelligent systems.</text>
+
+  <!-- Hero Headline -->
+  <text x="600" y="275" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="600" letter-spacing="-0.03em">
+    Building intelligent systems
+  </text>
+  <text x="600" y="340" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="600" letter-spacing="-0.03em">
+    that solve real-world problems.
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="405" text-anchor="middle" fill="#FFFFFF" fill-opacity="0.8" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500">
+    Backend <tspan fill="#3B82F6">•</tspan> AI <tspan fill="#3B82F6">•</tspan> System Design
+  </text>
+
+  <!-- CTAs -->
+  <rect x="465" y="450" width="145" height="46" rx="23" fill="#FFFFFF"/>
+  <text x="490" y="478" fill="#09090B" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500">View Projects →</text>
+
+  <rect x="625" y="450" width="110" height="46" rx="23" fill="transparent" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/>
+  <text x="655" y="478" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500">Resume</text>
+
+  <!-- Scroll Indicator -->
+  <text x="600" y="580" text-anchor="middle" fill="#FFFFFF" fill-opacity="0.4" font-family="monospace" font-size="10" letter-spacing="0.2em">SCROLL</text>
+  <line x1="600" y1="590" x2="600" y2="615" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1"/>
+</svg>
