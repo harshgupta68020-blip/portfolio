@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Sparkles } from 'lucide-react';
+import { ExternalLink, Sparkles } from 'lucide-react';
+import { GithubIcon } from '@/components/icons/SocialIcons';
 import { projectsData } from '@/data/projects';
 import ProjectDiagram from './ProjectDiagram';
 import { cardHoverProps } from '@/animations/variants';
@@ -44,7 +45,7 @@ export default function Projects() {
                       className="text-white/60 hover:text-white transition-colors p-2 rounded-full hover:bg-white/5"
                       aria-label="View Source Code"
                     >
-                      <Github className="w-5 h-5" />
+                      <GithubIcon className="w-5 h-5" />
                     </a>
                   )}
                 </div>
@@ -127,7 +128,7 @@ export default function Projects() {
                 className="inline-flex items-center gap-2 bg-white text-[#09090B] font-medium text-sm px-6 py-2.5 rounded-full hover:bg-white/90 transition-all"
               >
                 <span>Source Code</span>
-                <Github className="w-4 h-4" />
+                <GithubIcon className="w-4 h-4" />
               </a>
             </div>
           </motion.div>

@@ -70,7 +70,7 @@ export default function Timeline() {
                 <p className="text-white/60 text-sm md:text-base leading-relaxed">
                   {item.detail}
                 </p>
-              </motion.div>
+              </div>
             </motion.div>
           ))}
         </div>

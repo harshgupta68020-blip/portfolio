@@ -1,13 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, FileText, ArrowUpRight } from 'lucide-react';
+import { Mail, FileText, ArrowUpRight } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from '@/components/icons/SocialIcons';
 import { linksData } from '@/data/links';
 
 export default function Contact() {
   const contactLinks = [
-    { label: 'GitHub', href: linksData.github, icon: Github },
-    { label: 'LinkedIn', href: linksData.linkedin, icon: Linkedin },
+    { label: 'GitHub', href: linksData.github, icon: GithubIcon },
+    { label: 'LinkedIn', href: linksData.linkedin, icon: LinkedinIcon },
     { label: 'Email', href: linksData.email, icon: Mail },
     { label: 'Resume', href: linksData.resume, icon: FileText },
   ];
