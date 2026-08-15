@@ -1,8 +1,8 @@
 export const linksData = {
-  github: '',
-  linkedin: '',
-  email: '',
-  resume: '',
+  github: 'https://github.com',
+  linkedin: 'https://linkedin.com',
+  email: 'mailto:contact@example.com',
+  resume: '#',
 };
 
 export const heroEyebrows = [
